@@ -13,7 +13,6 @@ import { checkCode, dirExists, getJWTPayload } from '../common/Utils'
 class ContentController {
   async getPostList(ctx) {
     const body = qs.parse(ctx.query)
-    console.log(body)
     const sort = body.sort ? body.sort : 'created'
     const page = body.page ? parseInt(body.page) : 0
     const limit = body.limit ? parseInt(body.limit) : 20

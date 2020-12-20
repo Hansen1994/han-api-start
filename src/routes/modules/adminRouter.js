@@ -59,4 +59,10 @@ router.post('/delete-role', adminController.deleteRole)
 // 更新角色
 router.post('/update-role', adminController.updateRole)
 
+// 获取角色列表
+router.get('/get-roles-names', adminController.getRoleNames)
+
+// 获取用户 -> 角色 -> 动态菜单信息
+router.get('/get-routes', adminController.getRoutes)
+
 export default router

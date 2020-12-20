@@ -63,7 +63,7 @@ class LoginController {
     let code = body.code
     // 验证图片验证码的时效性，正确性
     let result = await checkCode(sid, code)
-    console.log('check OK')
+    console.log('check OK, 登入成功！')
     if (result) {
       // 验证用户账号是否正确
       let checkUserPasswd = false

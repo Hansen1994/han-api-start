@@ -10,12 +10,21 @@ const REDIS = {
 const baseUrl = process.env.NODE_ENV === 'production' ? 'http://www.toimc.com' : 'http://localhost:8080'
 
 // 上传图片后的根目录文件路径
-const uploadPath = process.env.NODE_ENV === 'production' ? '/app/public' : path.join(path.resolve(__dirname), '../../public')
+const uploadPath =
+  process.env.NODE_ENV === 'production' ? '/app/public' : path.join(path.resolve(__dirname), '../../public')
+
+// 设置超级管理员
+const adminEmail = ['646380243@qq.com']
+
+// 返回公共路径
+const publicPath = [/^\/public/, /^\/login/]
 
 export default {
   DB_URL,
   REDIS,
   JWT_SECRET,
   baseUrl,
-  uploadPath
+  uploadPath,
+  adminEmail,
+  publicPath
 }

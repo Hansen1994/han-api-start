@@ -391,7 +391,7 @@ class UserController {
   // 管理员编辑模态框后更新用户
   async updateUserById(ctx) {
     const { body } = ctx.request
-    console.log(body)
+    // console.log(body)
     const user = await User.findOne({ _id: body._id })
     // 1.校验用户是否存在-> 用户名是否冲突
     if (!user) {

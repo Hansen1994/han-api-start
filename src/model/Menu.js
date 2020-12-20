@@ -4,6 +4,7 @@ const Schema = mongoose.Schema
 
 const MenuSchema = new Schema({
   title: { type: String, default: '' },
+  name: { type: String, default: '' },
   path: { type: String, default: '' },
   component: { type: String, default: '' },
   hideInBread: { type: Boolean, default: false },
@@ -11,6 +12,7 @@ const MenuSchema = new Schema({
   notCache: { type: Boolean, default: false },
   icon: { type: String, default: '' },
   sort: { type: String, default: 0 },
+  link: { type: String, default: '' },
   redirect: { type: String, default: '' },
   type: { type: String, default: 'menu' },
   // 配合tree组件，展开对应的树形结构

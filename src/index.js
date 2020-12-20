@@ -12,16 +12,18 @@ import errorHandle from './common/ErrorHandle'
 import Koa from 'koa'
 import path from 'path'
 import WebSocketServer from './config/WebSocket'
+import auth from './common/Auth'
+import { run } from './common/Init'
 
 const app = new Koa()
 
 const ws = new WebSocketServer()
 ws.init()
 global.ws = ws
-console.log(global.ws)
+// console.log(global.ws)
 
 // 定义公共路径，不需要jwt鉴权（比如public和login是不需鉴权的）
-const jwt = JWT({secret: config.JWT_SECRET}).unless({ path: [/^\/public/, /^\/login/] })
+const jwt = JWT({ secret: config.JWT_SECRET }).unless({ path: [/^\/public/, /^\/login/] })
 
 // 请求的安全头
 // const helmet = require('koa-helmet')
@@ -40,19 +42,22 @@ const middleware = compose([
       // 上传时候图片大小
       maxFieldsSize: 5 * 1024 * 1024
     },
-    onError: err => {
+    onError: (err) => {
       console.log(err)
     }
   }),
-  // 定义静态
+  // 定义静态(所有api文件夹都能获取)
   statics(path.join(__dirname, '../public')),
   cors(),
   helmet(),
   jwt,
+  auth,
   errorHandle
 ])
 app.use(middleware)
 app.use(router())
-app.listen(3000, ()=>{
-  console.log('请求OK！')
+app.listen(3000, () => {
+  console.log('正在初始化, 端口运行在' + 3000)
+  // 初始化，如初始化超管
+  run()
 })
