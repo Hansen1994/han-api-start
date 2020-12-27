@@ -17,8 +17,9 @@ const uploadPath =
 const adminEmail = ['646380243@qq.com']
 
 // 返回公共路径
-const publicPath = [/^\/public/, /^\/login/]
+const publicPath = [/^\/public/, /^\/login/, /^\/content/, /^\/user/, /^\/comments/]
 
+const isDevMode = process.env.NODE_ENV !== 'production'
 export default {
   DB_URL,
   REDIS,
@@ -26,5 +27,6 @@ export default {
   baseUrl,
   uploadPath,
   adminEmail,
-  publicPath
+  publicPath,
+  isDevMode
 }

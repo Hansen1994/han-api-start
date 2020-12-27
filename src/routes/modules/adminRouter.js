@@ -65,4 +65,7 @@ router.get('/get-roles-names', adminController.getRoleNames)
 // 获取用户 -> 角色 -> 动态菜单信息
 router.get('/get-routes', adminController.getRoutes)
 
+// 获取统计数据
+router.get('/getstat', adminController.getStats)
+
 export default router
