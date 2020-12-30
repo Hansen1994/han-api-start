@@ -30,7 +30,10 @@ class UserController {
       // 有历史的签到数据
       // 判断用户上一次签到记录的created的事件是否与今天相同
       // 如果当前时间的日期与用户上一次的相同，说明用户已经签到,应该说是同一天签到的
-      if (moment(record.created).format('YYYY-MM-DD') === moment().format('YYYY-MM-DD')) {
+      if (
+        moment(record.created).format('YYYY-MM-DD') ===
+        moment().format('YYYY-MM-DD')
+      ) {
         ctx.body = {
           code: 500,
           favs: user.favs,
@@ -46,7 +49,10 @@ class UserController {
 
         // 判断签到时间: 用户上一次的签到时间等于当前时间的前一天，说明用户在连续签到
         // 第n+1天签到的时候，需要与第n天的created比较
-        if (moment(record.created).format('YYYY-MM-DD') === moment().subtract(1, 'days').format('YYYY-MM-DD')) {
+        if (
+          moment(record.created).format('YYYY-MM-DD') ===
+          moment().subtract(1, 'days').format('YYYY-MM-DD')
+        ) {
           // 连续签到的积分获得逻辑
           count += 1
           if (count < 5) {
@@ -257,7 +263,11 @@ class UserController {
   async getCollectByUid(ctx) {
     const params = ctx.query
     const obj = await getJWTPayload(ctx.header.authorization)
-    const result = await UserCollect.getListByUid(obj._id, params.page, params.limit ? parseInt(params.limit) : 10)
+    const result = await UserCollect.getListByUid(
+      obj._id,
+      params.page,
+      params.limit ? parseInt(params.limit) : 10
+    )
     if (result.length > 0) {
       ctx.body = {
         code: 200,
@@ -274,8 +284,9 @@ class UserController {
   // 获取用户基本信息
   async getBasicInfo(ctx) {
     const params = ctx.query
-    const obj = await getJWTPayload(ctx.header.authorization)
-    const uid = params.uid || obj._id
+    // const obj = await getJWTPayload(ctx.header.authorization)
+    // 因为中间件已经设置ctx._id,所以去掉上面这段代码
+    const uid = params.uid || ctx._id
     let user = await User.findByID(uid)
     // 取得用户的签到记录 有没有 > today 0:00:00
     if (user) {
@@ -321,7 +332,10 @@ class UserController {
     const params = ctx.query
     if (params.id) {
       // 用于删除单挑数据(设置为已阅)
-      const result = await Comments.updateOne({ _id: params.id }, { isRead: '1' })
+      const result = await Comments.updateOne(
+        { _id: params.id },
+        { isRead: '1' }
+      )
       if (result.ok === 1) {
         ctx.body = {
           code: 200
@@ -330,7 +344,10 @@ class UserController {
     } else {
       const obj = await getJWTPayload(ctx.header.authorization)
       // 设置所有数据都已阅
-      const result = await Comments.updateMany({ uid: obj._id }, { isRead: '1' })
+      const result = await Comments.updateMany(
+        { uid: obj._id },
+        { isRead: '1' }
+      )
       const num = await Comments.getTotal(obj._id)
       if (result.ok === 1) {
         ctx.body = {
@@ -481,7 +498,10 @@ class UserController {
   async updateUserBatch(ctx) {
     // console.log(ctx)
     const { body } = ctx.request
-    const result = await User.updateMany({ _id: { $in: body.ids } }, { $set: { ...body.settings } })
+    const result = await User.updateMany(
+      { _id: { $in: body.ids } },
+      { $set: { ...body.settings } }
+    )
     ctx.body = {
       code: 200,
       data: result

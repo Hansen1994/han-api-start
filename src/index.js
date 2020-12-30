@@ -14,16 +14,19 @@ import path from 'path'
 import WebSocketServer from './config/WebSocket'
 import auth from './common/Auth'
 import { run } from './common/Init'
+import log4js from './config/Log4j'
+// import logger1 from './common/Logger'
 
 const app = new Koa()
 
 const ws = new WebSocketServer()
 ws.init()
 global.ws = ws
-// console.log(global.ws)
 
 // 定义公共路径，不需要jwt鉴权（比如public和login是不需鉴权的）
-const jwt = JWT({ secret: config.JWT_SECRET }).unless({ path: [/^\/public/, /^\/login/] })
+const jwt = JWT({ secret: config.JWT_SECRET }).unless({
+  path: [/^\/public/, /^\/login/]
+})
 
 // 请求的安全头
 // const helmet = require('koa-helmet')
@@ -34,6 +37,8 @@ const jwt = JWT({ secret: config.JWT_SECRET }).unless({ path: [/^\/public/, /^\/
 // app.use(router())
 // 整合,使用koa-compose继承中间件
 const middleware = compose([
+  // 中间件(洋葱模型, 用于与'./common/Logger'对应，看系统的执行效率)
+  // logger1,
   koaBody({
     multipart: true,
     formidable: {
@@ -43,7 +48,7 @@ const middleware = compose([
       maxFieldsSize: 5 * 1024 * 1024
     },
     onError: (err) => {
-      console.log(err)
+      console.log('koabody TCL: err', err)
     }
   }),
   // 定义静态(所有api文件夹都能获取)
@@ -52,12 +57,27 @@ const middleware = compose([
   helmet(),
   jwt,
   auth,
-  errorHandle
+  errorHandle,
+  // 日志
+  config.isDevMode
+    ? // 记录到console
+      log4js.koaLogger(log4js.getLogger('http'), {
+        level: 'auto'
+      })
+    : // 记录到文件
+      log4js.koaLogger(log4js.getLogger('access'), {
+        level: 'auto'
+      })
 ])
+
+// if (!isDevMode) {
+//   app.use(compress())
+// }
 app.use(middleware)
 app.use(router())
 app.listen(3000, () => {
-  console.log('正在初始化, 端口运行在' + 3000)
+  const logger = log4js.getLogger('out')
+  logger.info('正在初始化, 端口运行在' + 3000)
   // 初始化，如初始化超管
   run()
 })

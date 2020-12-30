@@ -2,6 +2,7 @@ import Router from 'koa-router'
 import contentController from '../../api/ContentController'
 import UserController from '../../api/UserController'
 import adminController from '../../api/AdminController'
+import errorController from '../../api/ErrorController'
 
 const router = new Router()
 
@@ -67,5 +68,11 @@ router.get('/get-routes', adminController.getRoutes)
 
 // 获取统计数据
 router.get('/getstat', adminController.getStats)
+
+// 获取错误日志
+router.get('/get-error', errorController.getErrorList)
+
+// 删除错误日志
+router.post('/delete-error', errorController.deleteError)
 
 export default router

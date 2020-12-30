@@ -1,0 +1,2 @@
+[2020-12-28T15:44:06.006] [INFO] access - ::1 - - "GET /public/getChapcha?sid=123456789sa HTTP/1.1" 200 8319 "" "PostmanRuntime/7.6.0"
+[2020-12-28T15:46:56.976] [INFO] access - ::1 - - "GET /public/getChapcha?sid=123456789sa HTTP/1.1" 200 8193 "" "PostmanRuntime/7.6.0"

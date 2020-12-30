@@ -221,8 +221,6 @@ class AdminController {
     ])
     // 这个挺好的，值得学习
     monthData = monthData.reduce((obj, item) => {
-      console.log(obj)
-      console.log(item)
       return {
         ...obj,
         [item._id]: item.count
@@ -275,7 +273,7 @@ class AdminController {
           .format('YYYY-MM-DD')
       )
     }
-    console.log(dataArr)
+    // console.log(dataArr)
     // 为了避免有些周没有数据以0占位
     const addData = (obj) => {
       const arr = []

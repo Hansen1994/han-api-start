@@ -59,11 +59,13 @@ class LoginController {
   async login(ctx) {
     // 接收用户的数据
     const { body } = ctx.request
+    console.log(body)
     let sid = body.sid
     let code = body.code
     // 验证图片验证码的时效性，正确性
     let result = await checkCode(sid, code)
     console.log('check OK, 登入成功！')
+    console.log(result)
     if (result) {
       // 验证用户账号是否正确
       let checkUserPasswd = false
@@ -84,13 +86,19 @@ class LoginController {
         })
         // 验证通过返回Token
         let token = jsonwebtoken.sign(
-          { _id: userObj._id, exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24 },
+          {
+            _id: userObj._id,
+            exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24
+          },
           config.JWT_SECRET
         )
         // 加入isSign属性,就是做一个标记属性
         const SignRecord = await signRecord.findByUid(userObj._id)
         if (SignRecord !== null) {
-          if (moment(SignRecord.created).format('YYYY-MM-DD') === moment().format('YYYY-MM-DD')) {
+          if (
+            moment(SignRecord.created).format('YYYY-MM-DD') ===
+            moment().format('YYYY-MM-DD')
+          ) {
             userObj.isSign = true
           } else {
             userObj.isSign = false

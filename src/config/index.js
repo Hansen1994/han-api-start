@@ -7,19 +7,31 @@ const REDIS = {
   port: 15001
 }
 // 返回前端的基础地址
-const baseUrl = process.env.NODE_ENV === 'production' ? 'http://www.toimc.com' : 'http://localhost:8080'
+const baseUrl =
+  process.env.NODE_ENV === 'production'
+    ? 'http://www.toimc.com'
+    : 'http://localhost:8080'
 
 // 上传图片后的根目录文件路径
 const uploadPath =
-  process.env.NODE_ENV === 'production' ? '/app/public' : path.join(path.resolve(__dirname), '../../public')
+  process.env.NODE_ENV === 'production'
+    ? '/app/public'
+    : path.join(path.resolve(__dirname), '../../public')
 
 // 设置超级管理员
 const adminEmail = ['646380243@qq.com']
 
 // 返回公共路径
-const publicPath = [/^\/public/, /^\/login/, /^\/content/, /^\/user/, /^\/comments/]
+const publicPath = [
+  /^\/public/,
+  /^\/login/,
+  /^\/user/,
+  /^\/comments/,
+  /^\/content/
+]
 
 const isDevMode = process.env.NODE_ENV !== 'production'
+
 export default {
   DB_URL,
   REDIS,
