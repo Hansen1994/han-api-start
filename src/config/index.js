@@ -9,7 +9,7 @@ const REDIS = {
 // 返回前端的基础地址
 const baseUrl =
   process.env.NODE_ENV === 'production'
-    ? 'http://www.toimc.com'
+    ? 'http://122.51.156.210:22500'
     : 'http://localhost:8080'
 
 // 上传图片后的根目录文件路径
@@ -32,6 +32,8 @@ const publicPath = [
 
 const isDevMode = process.env.NODE_ENV !== 'production'
 
+const port = isDevMode ? 3000 : 12500
+
 export default {
   DB_URL,
   REDIS,
@@ -40,5 +42,6 @@ export default {
   uploadPath,
   adminEmail,
   publicPath,
-  isDevMode
+  isDevMode,
+  port
 }

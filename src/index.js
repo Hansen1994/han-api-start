@@ -77,7 +77,7 @@ app.use(middleware)
 app.use(router())
 app.listen(3000, () => {
   const logger = log4js.getLogger('out')
-  logger.info('正在初始化, 端口运行在' + 3000)
+  logger.info('正在初始化, 端口运行在' + config.port)
   // 初始化，如初始化超管
   run()
 })
