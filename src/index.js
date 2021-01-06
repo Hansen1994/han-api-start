@@ -18,10 +18,10 @@ const app = new Koa()
 const ws = new WebSocketServer()
 ws.init()
 global.ws = ws
-console.log(global.ws)
+// console.log(global.ws)
 
 // 定义公共路径，不需要jwt鉴权（比如public和login是不需鉴权的）
-const jwt = JWT({secret: config.JWT_SECRET}).unless({ path: [/^\/public/, /^\/login/] })
+const jwt = JWT({ secret: config.JWT_SECRET }).unless({ path: [/^\/public/, /^\/login/] })
 
 // 请求的安全头
 // const helmet = require('koa-helmet')
@@ -40,7 +40,7 @@ const middleware = compose([
       // 上传时候图片大小
       maxFieldsSize: 5 * 1024 * 1024
     },
-    onError: err => {
+    onError: (err) => {
       console.log(err)
     }
   }),
@@ -53,6 +53,6 @@ const middleware = compose([
 ])
 app.use(middleware)
 app.use(router())
-app.listen(3000, ()=>{
+app.listen(config.port, () => {
   console.log('请求OK！')
 })

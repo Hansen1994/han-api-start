@@ -10,12 +10,15 @@ const REDIS = {
 const baseUrl = process.env.NODE_ENV === 'production' ? 'http://www.toimc.com' : 'http://localhost:8080'
 
 // 上传图片后的根目录文件路径
-const uploadPath = process.env.NODE_ENV === 'production' ? '/app/public' : path.join(path.resolve(__dirname), '../../public')
-
+const uploadPath =
+  process.env.NODE_ENV === 'production' ? '/app/public' : path.join(path.resolve(__dirname), '../../public')
+const isDevMode = process.env.NODE_ENV !== 'production'
+const port = isDevMode ? 3000 : 22000
 export default {
   DB_URL,
   REDIS,
   JWT_SECRET,
   baseUrl,
-  uploadPath
+  uploadPath,
+  port
 }
