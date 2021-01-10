@@ -54,5 +54,5 @@ const middleware = compose([
 app.use(middleware)
 app.use(router())
 app.listen(config.port, () => {
-  console.log('请求OK！！' + process.env.NODE_ENV + config.port)
+  console.log('请求OK!!！！' + process.env.NODE_ENV + config.port)
 })
