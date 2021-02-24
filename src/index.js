@@ -26,7 +26,6 @@ const jwt = JWT({ secret: config.JWT_SECRET }).unless({ path: [/^\/public/, /^\/
 // 请求的安全头
 // const helmet = require('koa-helmet')
 // const statics = require('koa-static')
-
 // app.use(helmet())
 // app.use(statics(path.join(__dirname, '../assets')))
 // app.use(router())
