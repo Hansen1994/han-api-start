@@ -15,3 +15,5 @@
 [2020-12-30T17:04:16.561] [ERROR] error - /login/login POST undefined: Cannot read property 'password' of null 
 [2020-12-30T17:04:29.289] [ERROR] error - /login/login POST undefined: Cannot read property 'password' of null 
 [2020-12-30T17:04:40.631] [ERROR] error - /login/login POST undefined: Cannot read property 'password' of null 
+[2021-02-24T20:57:48.811] [ERROR] error - /public/content/detail?tid=undefined GET undefined: Cast to ObjectId failed for value "undefined" at path "_id" for model "posts" 
+[2021-02-24T21:02:49.998] [ERROR] error - /public/content/detail?tid=undefined GET undefined: Cast to ObjectId failed for value "undefined" at path "_id" for model "posts" 
