@@ -84,6 +84,16 @@ UserSchema.statics = {
   countList: function (options) {
     // populate是联合查询，只筛选出uid和name，这样子可以避免出现password等敏感信息
     return this.find(options).countDocuments()
+  },
+  getTotalSign: function (page, limit) {
+    return this.find({})
+      .skip(page * limit)
+      .limit(limit)
+      .sort({ count: -1 })
+  },
+  getTotalSignCount: function (page, limit) {
+    console.log(page, limit)
+    return this.find({}).countDocuments()
   }
 }
 

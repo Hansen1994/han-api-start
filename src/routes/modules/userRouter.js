@@ -31,6 +31,9 @@ router.get('/collect', userController.getCollectByUid)
 // 获取历史消息
 router.get('/getmsg', userController.getMsg)
 
+// 获取历史消息
+router.get('/gethands', userController.getHands)
+
 // 设置获取历史消息
 router.get('/setmsg', userController.setMsg)
 
