@@ -3,6 +3,7 @@ import { getJWTPayload } from '../common/Utils'
 import User from '../model/User'
 import UserCollect from '../model/UserCollect'
 import Comments from '../model/Comments'
+import CommentsHands from '../model/CommentsHands'
 import moment from 'dayjs'
 import send from '../config/MailConfig'
 import { v4 as uuidv4 } from 'uuid'
@@ -306,13 +307,27 @@ class UserController {
     const limit = params.limit ? parseInt(params.limit) : 0
     const obj = await getJWTPayload(ctx.header.authorization)
     const num = await Comments.getTotal(obj._id)
-    // 这里可以使用aggregate联合查询但是太麻烦，所以采用冗余方式
+    // 这里可以使用aggregate联合查询但是太麻烦，所以采用冗余换时间方法
     // getMsgList重要接口
     const result = await Comments.getMsgList(obj._id, page, limit)
     ctx.body = {
       code: 200,
       data: result,
       total: num
+    }
+  }
+
+  // 获取点赞
+  async getHands(ctx) {
+    const params = ctx.query
+    const page = params.page ? parseInt(params.page) : 0
+    const limit = params.limit ? parseInt(params.limit) : 0
+    const obj = await getJWTPayload(ctx.header.authorization)
+    // 这里可以使用aggregate联合查询但是太麻烦，所以采用冗余换时间方法
+    const result = await CommentsHands.getHandsByUid(obj._id, page, limit)
+    ctx.body = {
+      code: 200,
+      data: result
     }
   }
 

@@ -27,5 +27,10 @@ router.get('/info', userController.getBasicInfo)
 router.get('/latestPost', contentController.getPostPublic)
 // 获取用户最近的评论记录
 router.get('/latestComment', commentsController.getCommentPublic)
-
+// 获取用热门帖子
+router.get('/hotPost', publicController.getHotPost)
+// 获取用热门评论
+router.get('/hotComments', publicController.getHotComments)
+// 获取用签到排行
+router.get('/hotSignRecord', publicController.getHotSignRecord)
 export default router
